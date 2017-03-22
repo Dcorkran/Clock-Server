@@ -26,13 +26,17 @@ function updateAlarmByUser(userID,alarm){
   var options = {
       method: 'PUT',
       uri: `${SERVER_URL}/clock`,
-      json: true // Automatically parses the JSON string in the response
+      json: true, // Automatically parses the JSON string in the response
+      body: {
+        id: userID,
+        alarm
+    },
     };
   return rp(options)
       .then(function (data) {
-        console.log(data[0]);
+        console.log(data);
         // res.json(data);
-        return data[0];
+        return data;
       })
       .catch(function (err) {
         console.log(err);
@@ -63,3 +67,5 @@ function getAlarmByUser(userID){
 }
 
 module.exports.getUserByEmail = getUserByEmail;
+module.exports.updateAlarmByUser = updateAlarmByUser;
+module.exports.getAlarmByUser = getAlarmByUser;
