@@ -3,7 +3,6 @@ var router = express.Router();
 var db = require('../api/db');
 var bcryptFunctions = require('../auth/bcryptFunctions');
 
-/* GET users listing. */
 router.post('/', function(req, res, next) {
   let user;
   db.getUserByEmail(req.body.email)
@@ -18,6 +17,8 @@ router.post('/', function(req, res, next) {
     })
     .then((passwordValidated)=>{
       if (passwordValidated) {
+        delete user.password;
+        console.log('hit',passwordValidated);
         res.json({user,validated:true});
       } else {
         res.json({validated:false});
